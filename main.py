@@ -1,6 +1,6 @@
 def printMenu():
     print ('1. Citire date')
-    print ('2. Determinare cea mai lungă subsecvență in care toat enumerele sunt pare')
+    print ('2. Determinare cea mai lungă subsecvență in care toate numerele sunt pare')
     print ('3. Determinare cea mai lungă subsecvență in care media numerelor nu depășește o valoare citită')
     print ('4. Iesire')
 
