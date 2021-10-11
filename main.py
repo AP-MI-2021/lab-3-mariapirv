@@ -2,7 +2,8 @@ def printMenu():
     print ('1. Citire date')
     print ('2. Determinare cea mai lungă subsecvență in care toate numerele sunt pare')
     print ('3. Determinare cea mai lungă subsecvență in care media numerelor nu depășește o valoare citită')
-    print ('4. Iesire')
+    print ('4. Determinare cea mai lungă subsecvență in care toate numerele sunt divizibile cu un numar')
+    print ('5. Iesire')
 
 def citireLista ():
     lst = []
@@ -84,7 +85,38 @@ def test_get_longest_average_below ():
     assert get_longest_average_below([34],10) == []
     assert get_longest_average_below([3,5,7,4],6) == [3,5,7,4]
 
+def EsteDivizibilcuK (lst,k):
+    '''
+    determina daca o lista are toate elementele divizibile cu k
+    :param lst: lista de nr intregi
+    :param k: nr intreg
+    :return: True, daca toate elementele sunt divizibile cu k sau False, in caz contrar
+    '''
+    for i in lst:
+        if i % k != 0:
+            return False
+    return True
+
+def get_longest_div_k (lst , k):
+    '''
+    determina cea mai lunga subsecventa in care toate elementele sunt divizibile cu un nr k
+    :param lst: lista de nr intregi
+    :param k: nr intreg
+    :return: cea mai lunga subsecventa in care toate elementele sunt divizibile cu un nr k
+    '''
+    subsecventaMax = []
+    for i in range(len(lst)):
+        for j in range(i, len(lst)):
+            if EsteDivizibilcuK(lst[i:j + 1], k) is True and len(subsecventaMax) < len(lst[i:j + 1]):
+                subsecventaMax = lst[i:j + 1]
+    return subsecventaMax
+
+def test_get_longest_div_k ():
+    assert get_longest_div_k([2,4,6],2) == [2,4,6]
+    assert get_longest_div_k([2,1,4],13) == []
+
 def main():
+    test_get_longest_div_k()
     test_get_longest_all_even()
     test_get_longest_average_below()
     lst=[]
@@ -99,6 +131,9 @@ def main():
             average = int(input("Dati valoarea pentru a compara media: "))
             print (get_longest_average_below((lst) , average))
         elif optiune == "4":
+            k = int(input("Dati valoarea cu care doriti sa fie divizibile numerele: "))
+            print (get_longest_div_k((lst),k))
+        elif optiune == '5':
             break
         else:
             print("Optiune gresita! Reincercati!")
